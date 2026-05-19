@@ -1,0 +1,109 @@
+.container {
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg);
+}
+
+.mainContainer {
+  background: var(--bg-auth);
+  width: 100%;
+  max-width: 420px;
+  padding: 30px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  h2 {
+    color: car(--text);
+    font-size: 24px;
+  }
+
+  p {
+    color: var(--color-p);
+    font-size: 14px;
+    a {
+      color: #4a9ebf;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.form {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.inputBox , .inputPass {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  h5 {
+    color: var(--color-h5);
+    font-size: 13px;
+  }
+}
+
+.inputWrapper {
+  position: relative;
+
+  input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-inp);
+    color: var(--color-h5);
+
+    outline: none;
+    transition: 0.2s;
+
+    &::placeholder {
+      color: var(--color-inp);
+    }
+
+    &:focus {
+      border-color: #4aa3ff;
+      box-shadow: 0 0 0 3px rgba(74, 163, 255, 0.15);
+    }
+  }
+}
+
+.button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #4a9ebf;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background: #4a9ebfab;
+  }
+}
+
+.inputWrapper { 
+position: relative;
+.look {
+  position: absolute;
+  top: 13px;
+right:10px;
+}
+
+}
