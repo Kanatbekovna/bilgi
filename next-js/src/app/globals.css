@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+  font-family: "Fraunces", serif;
+  text-decoration: none;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+body {
+  background: #111820;
+  background: var(--bg);
+  color: var(--text);
+}
+.container {
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 80px;
+  @media (max-width: 1534px) {
+    max-width: 1200px;
+  }
+  @media (max-width: 1200px) {
+    max-width: 1024px;
+  }
+  @media (max-width: 1024px) {
+    max-width: 768px;
+    padding: 0 40px;
+  }
+  @media (max-width: 768px) {
+    max-width: 640px;
+  }
+  @media (max-width: 640px) {
+    max-width: 475px;
+    padding: 0;
+  }
+  @media (max-width: 475px) {
+    max-width: 350px;
+    padding: 0;
+  }
+}
+
+p,
+a {
+  font-size: 16px;
+  font-weight: 400;
+  /* line-height: 32px; */
+  transition: border-bottom 1s ease-in;
+}
+
+button {
+  padding: 7px 14px;
+  border-radius: 5px;
+  border: none;
+}
+
+button:hover {
+  transform: scale(1.02);
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  main {
+    flex: 1;
+  }
+}
+html {
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+:root {
+  --bg: white;
+  --text: black;
+}
+
+[data-theme="dark"] {
+  --bg: #111820;
+ 
+  --bg-header: #111820cf;
+  --text: white;
+  --muted-text: rgba(255, 255, 255, 0.642);
+  --hover-text: white;
+  --color-sun: white;
+  --color-language: white;
+  --color-giris: white;
+  --color-h5: rgba(255, 255, 255, 0.571);
+  --color-p: rgba(255, 255, 255, 0.422);
+  --color-h1-btn: #4a9ebf;
+  --bg-inputS: #1c2630;
+  --color-hover-topic: white;
+  --bg-auth: #18212b;
+  --bg-inp: #111a23;
+  --color-inp:       
+;
+  --bg-stat: #1D2732;
+}
+
+[data-theme="light"] {
+  --bg: #f5f0ea;
+   --bg-header: #f5f0eacb;
+  --text: #121212;
+  --muted-text: black;
+  --hover-text: red;
+  --color-sun: black;
+  --color-language: rgba(0, 0, 0, 0.785);
+  --color-giris: rgba(0, 0, 0, 0.753);
+  --color-h5: rgba(0, 0, 0, 0.573);
+  --color-p: rgba(0, 0, 0, 0.573);
+  --color-h1-btn: #0a3347;
+  --bg-inputS: white;
+  --color-hover-topic: white;
+  --bg-auth: white;
+  --bg-inp: #f5f0ea;
+  --bg-stat: #fbf8f5;
+}

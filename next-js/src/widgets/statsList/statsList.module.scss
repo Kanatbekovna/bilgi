@@ -1,0 +1,19 @@
+.container {
+    padding-block: 40px;
+    background: var(--bg-stat);
+.mainContainer {
+  h3 {
+    text-align: center;
+    padding-bottom: 40px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 400;
+    color: var(--color-h5);
+  }
+  .listStat {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+}
