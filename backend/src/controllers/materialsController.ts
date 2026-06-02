@@ -1,10 +1,11 @@
 import { pool } from "../db/pg.js";
+import { Request, Response } from "express";
 
-export async function getMaterials(req, res) {
-  const page = Math.max(1, parseInt(req.query.page) || 1);
-  const limit = Math.min(50, parseInt(req.query.limit) || 10);
+export async function getMaterials(req: Request, res: Response) {
+  const page = Math.max(1, parseInt((req.query.page as string) || "1") || 1);
+  const limit = Math.min(50, parseInt((req.query.limit as string) || "10") || 10);
   const offset = (page - 1) * limit;
-  const search = req.query.search?.trim() || "";
+  const search = (req.query.search as string)?.trim() || "";
 
   try {
     const whereClause = search
@@ -39,22 +40,22 @@ export async function getMaterials(req, res) {
         pages: Math.ceil(total / limit),
       },
     });
-  } catch (e) {
+  } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
 }
 
-export async function getMaterialById(req, res) {
+export async function getMaterialById(req: Request, res: Response) {
   try {
     const result = await pool.query(
       "SELECT * FROM materials WHERE id = $1",
       [req.params.id]
     );
     if (!result.rows[0]) {
-      return res.status(404).json({ error: "Макала табылган жок" });
+      return res.status(404).json({ error: "Статья не найдена" });
     }
     res.json(result.rows[0]);
-  } catch (e) {
+  } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
 }

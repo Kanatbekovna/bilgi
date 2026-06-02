@@ -1,5 +1,4 @@
 import { saveArticle, saveJournal } from "../db/pool.js";
-
 import { getJournals } from "../scraper/journals.js";
 import { getArticles } from "../scraper/articles.js";
 
@@ -20,7 +19,7 @@ export async function crawlAll() {
       stats.journals++;
 
       console.log("JOURNAL:", journal.title);
-    } catch (e) {
+    } catch (e: any) {
       console.log("Journal save error:", e.message);
     }
 
@@ -36,11 +35,11 @@ export async function crawlAll() {
           stats.articles++;
 
           console.log("ARTICLE:", article.title);
-        } catch (e) {
+        } catch (e: any) {
           console.log("Article save error:", e.message);
         }
       }
-    } catch (e) {
+    } catch (e: any) {
       console.log("Get articles error:", e.message);
     }
   }

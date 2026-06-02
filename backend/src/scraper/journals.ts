@@ -12,7 +12,7 @@ export async function getJournals() {
 
   const $ = cheerio.load(data);
 
-  const journals = [];
+  const journals: Array<any> = [];
 
   $("a").each((_, el) => {
     const href = $(el).attr("href");

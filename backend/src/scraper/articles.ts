@@ -3,12 +3,12 @@ import * as cheerio from "cheerio";
 
 const BASE = "https://journal.oshsu.kg";
 
-export async function getArticles(issueUrl) {
+export async function getArticles(issueUrl: string) {
   const { data } = await axios.get(issueUrl);
 
   const $ = cheerio.load(data);
 
-  const articles = [];
+  const articles: Array<any> = [];
 
   $(".obj_article_summary").each((_, el) => {
     const title = $(el).find(".title").text().trim();
@@ -26,11 +26,8 @@ export async function getArticles(issueUrl) {
 
     articles.push({
       title,
-
       authors,
-
       url: link.startsWith("http") ? link : BASE + link,
-
       pdf: pdf ? (pdf.startsWith("http") ? pdf : BASE + pdf) : null,
     });
   });

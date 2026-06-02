@@ -26,7 +26,7 @@ const upload = multer({
     if (file.mimetype === "application/pdf") {
       cb(null, true);
     } else {
-      cb(new Error("Жалаң PDF файл жүктөлөт"));
+      cb(new Error("Только PDF-файлы разрешены"));
     }
   },
   limits: { fileSize: 10 * 1024 * 1024 },

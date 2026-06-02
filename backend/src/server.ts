@@ -10,38 +10,34 @@ import materialsRoutes from "./routes/materials.js";
 import { corsMiddleware } from "./middleware/cors.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT ? Number(process.env.PORT) : 5000;
 
 app.use(helmet());
 app.use(corsMiddleware);
 app.use(express.json());
 
-// PDF файлдарды статикалык кызмат катары берүү
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-// Маршруттар
 app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
 app.use("/materials", materialsRoutes);
 
-// Тест
 app.get("/", (req, res) => {
-  res.send("Bilgi API иштеп жатат");
+  res.send("Bilgi API работает");
 });
 
-// Парсерди иштетүү
 app.get("/journals", async (req, res) => {
   try {
     const data = await crawlAll();
     res.json(data);
-  } catch (e) {
+  } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
 });
 
-// Жалпы ката handler — эң акырында болушу керек
 app.use(errorHandler);
 
 app.listen(PORT, () => {

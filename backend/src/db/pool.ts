@@ -1,6 +1,6 @@
 import { pool } from "./pg.js";
 
-export async function saveJournal(j) {
+export async function saveJournal(j: any) {
   await pool.query(
     `INSERT INTO journals(title, slug, url)
      VALUES($1,$2,$3)
@@ -9,11 +9,11 @@ export async function saveJournal(j) {
   );
 }
 
-export async function saveArticle(issueUrl, article) {
+export async function saveArticle(issueUrl: string, article: any) {
   await pool.query(
     `INSERT INTO articles(issue_url, title, url, pdf)
      VALUES ($1, $2, $3, $4)
      ON CONFLICT (url) DO NOTHING`,
-    [issueUrl, title, url, pdf]
+    [issueUrl, article.title, article.url, article.pdf]
   );
 }

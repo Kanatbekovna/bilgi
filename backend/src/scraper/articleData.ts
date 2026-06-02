@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-export async function getArticleData(url) {
+export async function getArticleData(url: string) {
   const { data } = await axios.get(url);
   const $ = cheerio.load(data);
 
