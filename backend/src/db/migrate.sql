@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS users (
   phone VARCHAR(50), -- телефон номери
   extra_info TEXT, -- кошумча маалымат
   profile_file_path VARCHAR(500), -- жүктөлгөн файлдын жолү
+  refresh_token_hash VARCHAR(64),
+  refresh_token_expires TIMESTAMP,
   created_at TIMESTAMP DEFAULT NOW()
 );
 
@@ -25,13 +27,5 @@ CREATE TABLE IF NOT EXISTS materials (
   keywords TEXT,
   pdf_path VARCHAR(500),
   created_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
-CREATE TABLE IF NOT EXISTS refresh_tokens (
-  id SERIAL PRIMARY KEY,
-  token_hash VARCHAR(64) NOT NULL UNIQUE,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  expires_at TIMESTAMP NOT NULL,
   created_at TIMESTAMP DEFAULT NOW()
 );

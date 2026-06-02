@@ -9,8 +9,8 @@ function refreshExpiresAt(): Date {
 
 async function saveRefreshToken(userId: number, token: string): Promise<void> {
   await pool.query(
-    "INSERT INTO refresh_tokens (token_hash, user_id, expires_at) VALUES ($1, $2, $3)",
-    [hashToken(token), userId, refreshExpiresAt()]
+    "UPDATE users SET refresh_token_hash = $1, refresh_token_expires = $2 WHERE id = $3",
+    [hashToken(token), refreshExpiresAt(), userId]
   );
 }
 
@@ -103,31 +103,21 @@ export async function refresh(req: Request, res: Response) {
   }
 
   try {
-    const deleted = await pool.query(
-      `DELETE FROM refresh_tokens
-       WHERE token_hash = $1 AND expires_at > NOW()
-       RETURNING user_id`,
+    const result = await pool.query(
+      `SELECT id, email, role
+       FROM users
+       WHERE refresh_token_hash = $1 AND refresh_token_expires > NOW()`,
       [hashToken(refreshToken)]
     );
 
-    if (!deleted.rows[0]) {
+    if (!result.rows[0]) {
       return res.status(401).json({ error: "Токен недействителен или просрочен" });
     }
 
-    const userId: number = deleted.rows[0].user_id;
-    const userResult = await pool.query(
-      "SELECT id, email, role FROM users WHERE id = $1",
-      [userId]
-    );
-
-    if (!userResult.rows[0]) {
-      return res.status(401).json({ error: "Пользователь не найден" });
-    }
-
-    const user = userResult.rows[0];
+    const user = result.rows[0];
     const newAccessToken = generateAccessToken(user);
     const newRefreshToken = generateRefreshToken();
-    await saveRefreshToken(userId, newRefreshToken);
+    await saveRefreshToken(user.id, newRefreshToken);
 
     res.json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
   } catch (e: any) {
@@ -143,7 +133,7 @@ export async function logout(req: Request, res: Response) {
 
   try {
     await pool.query(
-      "DELETE FROM refresh_tokens WHERE token_hash = $1",
+      "UPDATE users SET refresh_token_hash = NULL, refresh_token_expires = NULL WHERE refresh_token_hash = $1",
       [hashToken(refreshToken)]
     );
     res.json({ message: "Выход выполнен" });
