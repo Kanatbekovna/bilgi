@@ -1,5 +1,4 @@
-import pkg from "../../node_modules/@types/pg";
-
+import pkg from "pg";
 const { Pool } = pkg;
 
 export const pool = new Pool({

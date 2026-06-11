@@ -4,22 +4,28 @@ import { crawlAll } from "./services/crawler.js";
 const app = express();
 const PORT = 5000;
 
-// тест
 app.get("/", (req, res) => {
-  res.send("Parser API работает");
+  res.send("Multi Parser API running");
 });
 
-// парсинг всего журнала
+// ALL
+app.get("/crawl", async (req, res) => {
+  const result = await crawlAll("all");
+  res.json(result);
+});
 
-app.get("/journals", async (req, res) => {
-  try {
-    const data = await crawlAll();
-    res.json(data);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
+// ONLY VAK
+app.get("/crawl/vak", async (req, res) => {
+  const result = await crawlAll("vak");
+  res.json(result);
+});
+
+// ONLY OSHSU
+app.get("/crawl/oshsu", async (req, res) => {
+  const result = await crawlAll("oshsu");
+  res.json(result);
 });
 
 app.listen(PORT, () => {
-  console.log(`Server started on http://localhost:${PORT}`);
+  console.log(`http://localhost:${PORT}`);
 });

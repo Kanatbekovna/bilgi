@@ -1,53 +1,95 @@
-import { saveArticle, saveJournal } from "../db/pool.js";
+import { getVakJournals } from "../scraper/vak.kg/journals.js";
+import { getVakArticle } from "../scraper/vak.kg/articles.js";
+import { getOshsuJournals } from "../scraper/oshmu/journals.js";
+import { getOshsuArticles } from "../scraper/oshmu/articles.js";
+import { saveJournal } from "../db/journal.model.js";
+import { saveArticle } from "../db/articles.model.js";
+import { log } from "./logger.js";
 
-import { getJournals } from "../scraper/journals.js";
-import { getArticles } from "../scraper/articles.js";
-
-export async function crawlAll() {
-  console.log("CRAWL STARTED");
-
-  const journals = await getJournals();
+export async function crawlAll(site = "all") {
+  log("CRAWL START");
 
   let stats = {
     journals: 0,
     articles: 0,
   };
 
-  for (const journal of journals) {
-    try {
-      await saveJournal(journal);
+  // =========================
+  // 🟢 VAK PARSER
+  // =========================
+  if (site === "all" || site === "vak") {
+    log("START VAK");
 
-      stats.journals++;
+    const journals = await getVakJournals();
 
-      console.log("JOURNAL:", journal.title);
-    } catch (e) {
-      console.log("Journal save error:", e.message);
-    }
+    for (const journal of journals) {
+      try {
+        await saveJournal({ ...journal, source: "vak" });
+        stats.journals++;
 
-    try {
-      const articles = await getArticles(journal.url);
+        log(`VAK JOURNAL: ${journal.title}`);
+      } catch (e) {
+        log(`VAK journal error: ${e.message}`);
+      }
 
-      console.log("FOUND ARTICLES:", articles.length);
+      try {
+        const articles = await getVakArticle(journal.url);
 
-      for (const article of articles) {
-        try {
-          await saveArticle(journal.slug, article);
+        for (const article of articles) {
+          await saveArticle("vak", {
+            title: article.title,
+            url: article.url,
+            pdf: article.pdf,
+            issue_url: journal.url,
+          });
 
           stats.articles++;
-
-          console.log("ARTICLE:", article.title);
-        } catch (e) {
-          console.log("Article save error:", e.message);
+          log(`VAK ARTICLE: ${article.title}`);
         }
+      } catch (e) {
+        log(`VAK articles error: ${e.message}`);
       }
-    } catch (e) {
-      console.log("Get articles error:", e.message);
     }
   }
 
-  console.log("DONE", stats);
+  // =========================
+  // 🔵 OSHSU PARSER (ТВОЙ СТАРЫЙ)
+  // =========================
+  if (site === "all" || site === "oshsu") {
+    log("START OSHSU");
 
-  console.log("CRAWL FINISHED");
+    const journals = await getOshsuJournals();
+
+    for (const journal of journals) {
+      try {
+        await saveJournal({ ...journal, source: "oshsu" });
+        stats.journals++;
+
+        log(`OSHSU JOURNAL: ${journal.title}`);
+      } catch (e) {
+        log(`OSHSU journal error: ${e.message}`);
+      }
+
+      try {
+        const articles = await getOshsuArticles(journal.url);
+
+        for (const article of articles) {
+          try {
+            await saveArticle("oshsu", article);
+            stats.articles++;
+
+            log(`OSHSU ARTICLE: ${article.title}`);
+          } catch (e) {
+            log(`OSHSU article error: ${e.message}`);
+          }
+        }
+      } catch (e) {
+        log(`OSHSU issue error: ${e.message}`);
+      }
+    }
+  }
+
+  log(`DONE: ${JSON.stringify(stats)}`);
 
   return stats;
 }
