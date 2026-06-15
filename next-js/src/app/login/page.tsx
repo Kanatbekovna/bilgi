@@ -1,8 +1,3 @@
-import Login from "@/pages/auth/login/Login";
-import React from "react";
+﻿import Login from "@/pages/login/Login";
+export default function Page() { return <Login />; }
 
-const page = () => {
-  return <Login />;
-};
-
-export default page;

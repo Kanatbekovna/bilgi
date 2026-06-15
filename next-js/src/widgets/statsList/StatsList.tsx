@@ -1,58 +1,54 @@
 import StatCard from "@/shared/Ui/statCard/StatCard";
 import scss from "./statsList.module.scss";
 import { LiaClipboardListSolid } from "react-icons/lia";
-import { GiGraduateCap } from "react-icons/gi";
+import { PiScrollLight } from "react-icons/pi";
 import { FaBookOpen } from "react-icons/fa";
-import { TbUsers } from "react-icons/tb";
-import { FaArrowTrendUp } from "react-icons/fa6";
-import { IoMdPaper } from "react-icons/io";
+import { TbLayoutGrid, TbUsers, TbTrendingUp } from "react-icons/tb";
 
 export default function StatsList() {
   return (
-    <div className={scss.container}>
+    <section className={scss.section}>
       <div className="container">
-        <div className={scss.mainContainer}>
-          <h3>DATABASE STATISTICS</h3>
-          <div className={scss.listStat}>
-            <StatCard
-              icon={<LiaClipboardListSolid />}
-              value="682,821"
-              label="
-WORKS"
-            />
-            <StatCard
-              icon={<GiGraduateCap />}
-              value="76,281"
-              label="
-THESES"
-            />
-            <StatCard
-              icon={<IoMdPaper />}
-              value="260,448"
-              label="
-ARTICLES"
-            />
-            <StatCard
-              icon={<FaBookOpen />}
-              value="49,535"
-              label="
-JOURNALS"
-            />
-            <StatCard
-              icon={<TbUsers />}
-              value="867,863"
-              label="
-AUTHORS"
-            />
-            <StatCard
-              icon={<FaArrowTrendUp />}
-              value="8,359"
-              label="
-CONCEPTS"
-            />
-          </div>
+
+        <div className={scss.heading}>
+          <p className={scss.headingText}>DATABASE STATISTICS</p>
+          <div className={scss.diamond}><span>◆</span></div>
         </div>
+
+        <div className={scss.grid}>
+          <StatCard
+            icon={<LiaClipboardListSolid />}
+            value="2,850+"
+            label="НАУЧНЫЕ СТАТЬИ"
+          />
+          <StatCard
+            icon={<PiScrollLight />}
+            value="1,270+"
+            label="РУКОПИСИ"
+          />
+          <StatCard
+            icon={<FaBookOpen />}
+            value="340+"
+            label="ЖУРНАЛЫ"
+          />
+          <StatCard
+            icon={<TbLayoutGrid />}
+            value="56+"
+            label="КАТЕГОРИИ"
+          />
+          <StatCard
+            icon={<TbUsers />}
+            value="980+"
+            label="АВТОРЫ"
+          />
+          <StatCard
+            icon={<TbTrendingUp />}
+            value="15,600+"
+            label="ЦИТИРОВАНИЯ"
+          />
+        </div>
+
       </div>
-    </div>
+    </section>
   );
 }

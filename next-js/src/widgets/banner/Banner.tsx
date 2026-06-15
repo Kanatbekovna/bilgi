@@ -1,32 +1,66 @@
+﻿"use client";
+import { useLang } from "@/shared/lib/i18n/LanguageContext";
+import { GiGraduateCap } from "react-icons/gi";
+import { FaBookOpen } from "react-icons/fa";
+import { LuPenLine } from "react-icons/lu";
 import scss from "./banner.module.scss";
+import { CiSearch } from "react-icons/ci";
 
 export default function Banner() {
+  const { t } = useLang();
+
   return (
-    <div className={scss.container}>
-      <div className="container">
-        <div className={scss.mainContainer}>
-          <h3>• Test Yayını</h3>
-          <div className={scss.head}>
-            <h1>IZDENGo</h1>
-            <h5>DINÎ ARAŞTIRMALAR VERİ TABANI</h5>
-            <h2>“Dinî Araştırmaların Dijital Hafızası”</h2>
+    <section className={scss.hero}>
+      <div className={scss.heroInner}>
+
+        {/* Title */}
+        <div className={scss.titleBlock}>
+          <h1 className={scss.heroTitle}>BİLGİ</h1>
+
+          <div className={scss.diamond}>
+            <span>◆</span>
           </div>
-          <p>
-            İlahiyat alanındaki{" "}
-            <span> yazma eser, kitap, tez, makale ve bildiri</span> gibi
-            akademik çalışmalara açık erişim bağlantıları sunan bir akademik
-            bilgi ağı ve atıf dizini
-          </p>
-          <div className={scss.search}>
-            <input
-              type="text"
-              placeholder="Makale, yazar, anahtar kelime veya kavram arayın..."
-            />
-            <button>🔎ИЗДӨӨ</button>
-          </div>
-          <a href="#">Gelişmiş Arama</a>
+
+          <p className={scss.subtitle}>{t("banner.subtitle")}</p>
         </div>
+
+        {/* Search */}
+        <div className={scss.search}>
+          <input
+            type="text"
+            placeholder={t("banner.placeholder")}
+          />
+          <button><CiSearch/> {t("banner.searchBtn")}</button>
+        </div>
+
+        {/* Hero stats */}
+        <div className={scss.heroStats}>
+          <div className={scss.heroStatCard}>
+            <GiGraduateCap className={scss.heroStatIcon} />
+            <div className={scss.heroStatText}>
+              <span className={scss.heroStatNum}>125</span>
+              <span className={scss.heroStatLabel}>{t("banner.alim")}</span>
+            </div>
+          </div>
+
+          <div className={scss.heroStatCard}>
+            <FaBookOpen className={scss.heroStatIcon} />
+            <div className={scss.heroStatText}>
+              <span className={scss.heroStatNum}>430</span>
+              <span className={scss.heroStatLabel}>{t("banner.eser")}</span>
+            </div>
+          </div>
+
+          <div className={scss.heroStatCard}>
+            <LuPenLine className={scss.heroStatIcon} />
+            <div className={scss.heroStatText}>
+              <span className={scss.heroStatNum}>89</span>
+              <span className={scss.heroStatLabel}>{t("banner.tez")}</span>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
+    </section>
   );
 }

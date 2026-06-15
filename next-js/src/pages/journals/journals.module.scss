@@ -1,0 +1,308 @@
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.25; }
+  50%       { opacity: 0.5; }
+}
+
+.hero {
+  position: relative;
+  min-height: 52vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 130px 140px;
+  overflow: hidden;
+
+  background:
+    linear-gradient(to right,
+      rgba(var(--hero-rgb), 0.10) 0%,
+      rgba(var(--hero-rgb), 0.82) 26%,
+      rgba(var(--hero-rgb), 0.93) 50%,
+      rgba(var(--hero-rgb), 0.78) 74%,
+      rgba(var(--hero-rgb), 0.10) 100%
+    ),
+    linear-gradient(to bottom,
+      rgba(var(--hero-rgb), 0.05) 0%,
+      rgba(var(--hero-rgb), 0.05) 55%,
+      rgba(var(--hero-rgb), 0.88) 100%
+    ),
+    url('/hero-bg.png') center / cover no-repeat;
+  background-color: var(--hero-bg);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: -5%;
+    width: 110%;
+    height: 120px;
+    background: #f5f0e8;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    z-index: 1;
+  }
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.heroTitle {
+  font-family: var(--font-display), serif;
+  font-size: clamp(48px, 8vw, 88px);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: #f0e8d0;
+  line-height: 1;
+  margin: 0;
+  text-align: center;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
+}
+
+.diamond {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--gold, #c9a460);
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 1px;
+    background: var(--gold, #c9a460);
+    opacity: 0.45;
+  }
+
+  span { font-size: 11px; opacity: 0.9; }
+}
+
+.heroSubtitle {
+  font-family: var(--font-display), serif;
+  font-size: 12px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(240, 232, 208, 0.6);
+  margin: 0;
+}
+
+.heroSearch {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 580px;
+  background: rgba(245, 240, 232, 0.94);
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  margin-top: 8px;
+  animation: fadeUp 0.9s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 16px 22px;
+    color: #2a2015;
+    font-family: var(--font-body), serif;
+    font-size: 14px;
+
+    &::placeholder {
+      color: rgba(42, 32, 21, 0.5);
+      font-style: italic;
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--gold, #c9a460);
+    color: #1a1000;
+    border: none;
+    padding: 12px 24px;
+    margin: 4px;
+    border-radius: 50px;
+    font-family: var(--font-body), serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+
+    &:hover { background: #e0c080; transform: none; }
+  }
+}
+
+.section {
+  background: #f5f0e8;
+  padding-block: 60px 100px;
+  position: relative;
+  z-index: 2;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  animation: fadeUp 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.countBadge {
+  font-family: var(--font-display), serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--color-p);
+  letter-spacing: 0.06em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 22px;
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--card-border, rgba(201,164,96,0.12));
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+  cursor: pointer;
+  animation: fadeUp 0.55s both;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  transition:
+    border-color 0.22s ease,
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+
+  &:hover {
+    border-color: var(--gold, #c9a460);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.1);
+
+    .arrow { opacity: 1; transform: translateX(3px); }
+    .initial { opacity: 1; }
+  }
+}
+
+.initial {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display), serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gold, #c9a460);
+  background: rgba(201, 164, 96, 0.1);
+  border: 1px solid rgba(201, 164, 96, 0.3);
+  border-radius: 50%;
+  opacity: 0.8;
+  line-height: 1;
+  transition: opacity 0.22s ease;
+}
+
+.cardBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cardName {
+  font-family: var(--font-body), serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
+}
+
+.cardSub {
+  font-family: var(--font-body), serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--color-p);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.03em;
+}
+
+.cardLine {
+  width: 24px;
+  height: 1.5px;
+  background: var(--gold, #c9a460);
+  border-radius: 2px;
+  opacity: 0.5;
+  margin-top: 4px;
+}
+
+.arrow {
+  flex-shrink: 0;
+  font-size: 16px;
+  color: var(--gold, #c9a460);
+  opacity: 0.4;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.skeletons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.skeleton {
+  height: 88px;
+  border-radius: 10px;
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--card-border);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 80px 0;
+  color: var(--color-p);
+
+  span {
+    font-family: var(--font-display), serif;
+    font-size: 48px;
+    opacity: 0.3;
+    color: var(--gold, #c9a460);
+  }
+
+  p {
+    font-family: var(--font-display), serif;
+    font-size: 16px;
+    font-style: italic;
+    letter-spacing: 0.1em;
+  }
+}

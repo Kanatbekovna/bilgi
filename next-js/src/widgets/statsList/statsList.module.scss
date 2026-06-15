@@ -1,19 +1,53 @@
-.container {
-    padding-block: 40px;
-    background: var(--bg-stat);
-.mainContainer {
-  h3 {
-    text-align: center;
-    padding-bottom: 40px;
-    font-size: 12px;
-    letter-spacing: 2px;
-    font-weight: 400;
-    color: var(--color-h5);
+.section {
+  background: #f5f0e8;
+  padding-block: 80px 100px;
+  position: relative;
+  z-index: 2;
+
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.headingText {
+  font-family: var(--font-body), serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(26, 18, 0, 0.45);
+  margin: 0 0 12px;
+}
+
+.diamond {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--gold, #c9a460);
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: var(--gold, #c9a460);
+    opacity: 0.4;
   }
-  .listStat {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+
+  span {
+    font-size: 10px;
   }
 }
+
+.grid {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  flex-wrap: nowrap;
+
+  @media (max-width: 1024px) { flex-wrap: wrap; }
 }

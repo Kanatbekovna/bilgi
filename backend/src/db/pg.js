@@ -1,4 +1,4 @@
-import pkg from "../../node_modules/@types/pg";
+import pkg from "pg";
 
 const { Pool } = pkg;
 
@@ -6,6 +6,6 @@ export const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "bilgi_project",
-  password: "3689",
+  password: "6570",
   port: 5432,
 });

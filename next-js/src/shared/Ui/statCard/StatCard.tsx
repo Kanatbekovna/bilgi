@@ -6,16 +6,13 @@ interface StatCardProps {
   label: string;
 }
 
-export default function StatCard({
-  icon,
-  value,
-  label,
-}: StatCardProps) {
+export default function StatCard({ icon, value, label }: StatCardProps) {
   return (
     <div className={scss.card}>
-      <div className={scss.icon}>{icon}</div>
-      <h2>{value}</h2>
-      <p>{label}</p>
+      <div className={scss.iconWrap}>{icon}</div>
+      <p className={scss.value}>{value}</p>
+      <p className={scss.label}>{label}</p>
+      <div className={scss.underline} />
     </div>
   );
 }
